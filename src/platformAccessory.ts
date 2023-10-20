@@ -102,6 +102,7 @@ export class ExamplePlatformAccessory {
     this.platform.log.debug('Set Characteristic On ->', value);
   }
 
+  
   /**
    * Handle the "GET" requests from HomeKit
    * These are sent when HomeKit wants to know the current state of the accessory, for example, checking if a Light bulb is on.
