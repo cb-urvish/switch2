@@ -41,7 +41,7 @@ export class ExamplePlatformAccessory {
       .onSet(this.setOn.bind(this))                // SET - bind to the `setOn` method below
       .onGet(this.getOn.bind(this));               // GET - bind to the `getOn` method below
 
-      this.platform.log.info('this constructor is created');
+    this.platform.log.info('this constructor is created');
   }
 
   /**
@@ -55,8 +55,7 @@ export class ExamplePlatformAccessory {
     this.platform.log.debug('Set Characteristic On ->', value);
   }
 
-  
- 
+
   async getOn(): Promise<CharacteristicValue> {
     // implement your own code to check if the device is on
     const isOn = this.exampleStates.On;
