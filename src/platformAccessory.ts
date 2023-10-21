@@ -1,12 +1,12 @@
 import { Service, PlatformAccessory, CharacteristicValue } from 'homebridge';
 
 import { ExampleHomebridgePlatform } from './platform';
-// import * as net from 'net';
+import * as net from 'net';
 import TuyAPI from 'tuyapi';
 
 export class ExamplePlatformAccessory {
   private service: Service;
-  // private client: net.Socket;
+  private client: net.Socket;
   private device: TuyAPI;
 
   /**
@@ -44,7 +44,7 @@ export class ExamplePlatformAccessory {
       .onSet(this.setOn.bind(this))                // SET - bind to the `setOn` method below
       .onGet(this.getOn.bind(this));               // GET - bind to the `getOn` method below
 
-    // this.client = new net.Socket();
+    this.client = new net.Socket();
     this.device = new TuyAPI({
       id: 'd7ff5628727aa0a67197f9',
       key: '7033b96246d13311',
@@ -98,27 +98,27 @@ export class ExamplePlatformAccessory {
     this.exampleStates.On = value as boolean;
 
     this.platform.log.debug('Set Characteristic On ->', value);
-    // this.sendValueToServer(value);
+    this.sendValueToServer(value);
   }
 
-  // private sendValueToServer(value: CharacteristicValue) {
-  //   const SERVER_IP = '192.168.1.79';
-  //   const SERVER_PORT = 8980;
+  private sendValueToServer(value: CharacteristicValue) {
+    const SERVER_IP = '192.168.1.79';
+    const SERVER_PORT = 8980;
 
-  //   this.client.connect(SERVER_PORT, SERVER_IP, () => {
-  //     this.platform.log.info('Connected to the server');
+    this.client.connect(SERVER_PORT, SERVER_IP, () => {
+      this.platform.log.info('Connected to the server');
 
-  //     const dataToSend = value ? 'on' : 'off';
+      const dataToSend = value ? 'on' : 'off';
 
-  //     this.client.write(dataToSend);
+      this.client.write(dataToSend);
 
-  //     this.client.end(); // Close the connection after sending data
-  //   });
+      this.client.end(); // Close the connection after sending data
+    });
 
-  // this.client.on('error', (error) => {
-  //   this.platform.log.error('Socket error:', error);
-  // });
-  //}
+    this.client.on('error', (error) => {
+      this.platform.log.error('Socket error:', error);
+    });
+  }
 
 
   async getOn(): Promise<CharacteristicValue> {
