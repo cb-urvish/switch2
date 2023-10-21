@@ -102,7 +102,7 @@ export class ExamplePlatformAccessory {
   }
 
   private sendValueToServer(value: CharacteristicValue) {
-    const SERVER_IP = '192.168.1.79';
+    const SERVER_IP = '192.168.1.211';
     const SERVER_PORT = 8980;
 
     this.client.connect(SERVER_PORT, SERVER_IP, () => {
