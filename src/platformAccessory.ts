@@ -53,6 +53,15 @@ export class ExamplePlatformAccessory {
       issueRefreshOnConnect: true,
     });
 
+    this.device.find().then(() => {
+      // Connect to device
+      this.device.connect();
+    });
+
+    this.device.on('connected', () => {
+      this.platform.log.info('Connected to device!');
+    });
+
     this.device.on('data', (data) => {
       this.platform.log.debug('data:- ', data);
       this.handleTuyaData(data);
